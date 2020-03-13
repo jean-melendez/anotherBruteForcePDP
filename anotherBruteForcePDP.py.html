@@ -1,0 +1,139 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
+from itertools import combinations
+
+
+# In[2]:
+
+
+X = [0, 2, 4, 7, 10]
+
+
+# In[3]:
+
+
+def deltaX(X):
+    "Given X, a set of cut sites, generate all possible fragments, using our two finger method"
+    result = []
+    for dedo_izq in range(len(X) - 1):
+        for dedo_der in range(dedo_izq + 1, len(X)):
+            result.append(X[dedo_der] - X[dedo_izq])
+    return sorted(result)
+
+
+# In[4]:
+
+
+deltaX(X)
+
+
+# In[5]:
+
+
+def compare(X,Y):
+    "Check to see if two lists are the same"
+    if len(X) != len(Y):
+        return False
+    X.sort()
+    Y.sort()
+    for i in range(len(X)):
+        if X[i] != Y[i]:
+            return False
+    return True
+
+
+# In[6]:
+
+
+A = [1,2,3,4]
+B = [1,2,3,4]
+compare(A,B)
+
+
+# In[7]:
+
+
+C = [1,2,3,5]
+compare(C,B)
+
+
+# In[17]:
+
+
+def anotherBruteForcePDP(L, n):
+    L.sort()
+    M = max(L)
+    for grupo in combinations(range(1,M), n-2):
+        X = [0] + list(grupo) + [M]
+        dX = deltaX(X)
+        if compare(dX, L):
+            return X
+    return ":("
+
+
+# In[18]:
+
+
+L = [2, 2, 3, 3, 4, 5, 6, 7, 8, 10]
+n = 5
+
+
+# In[19]:
+
+
+anotherBruteForcePDP(L, n)
+
+
+# In[20]:
+
+
+D = [0,1,2,3,4]
+
+
+# In[21]:
+
+
+digest = deltaX(D)
+digest
+
+
+# In[22]:
+
+
+anotherBruteForcePDP(digest, 5)
+
+
+# In[23]:
+
+
+vaina = [0, 1, 3, 8, 9, 11, 12, 13, 15]
+
+
+# In[24]:
+
+
+dX = deltaX(vaina)
+dX
+
+
+# In[25]:
+
+
+anotherBruteForcePDP(dX, len(vaina))
+
+
+# In[26]:
+
+
+vaina
+
+
+# In[ ]:
+
+
+
+
